@@ -14,22 +14,14 @@ public class PlateList : MonoBehaviour
      void Awake() {
         AdicionaPratos(0,"",0,0);
     }
-     
-      void Start()
-     {
-         //AdicionaPratos(12,"Bolo",3,12);
-         //AdicionaPratos(14,"Coxinha",2,4);
-         //AdicionaPratos(13,"Biscoito",1,2);
+
+     protected virtual void Start()
+     { 
+         SalvaPratos();
          
-         //MostraPratos();
-         Debuga();
      }
-
-       void Update()
-      {
-      }
-
-      public Plates head;
+     
+    public Plates head;
     public PlateList()
     {
         head = new Plates(0, "", 0, 0,null);
@@ -40,9 +32,9 @@ public class PlateList : MonoBehaviour
         plate.nextPlate = head.nextPlate;
         head.nextPlate = plate;
         Debug.Log("Adicionou");
+        
     }
-
-    public void MostraPratos()
+    public void SalvaPratos()
     {
         Plates plate = new Plates(0, "", 0, 0, null);
 
@@ -55,8 +47,7 @@ public class PlateList : MonoBehaviour
             sw.Close();
         }
     }
-
-    public void Debuga()
+    public void DebugaPratos()
     {
         int counter = 0;
         string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -101,16 +92,6 @@ public class PlateList : MonoBehaviour
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 }
 public class Plates
 {

@@ -17,14 +17,18 @@ public class RestaurantScript : PlateList
   public GameObject[] plates;
   protected override void Start()
   {
-    transform.position = new Vector3(0, Screen.height, 0);
+    transform.position = new Vector3(100, Screen.height - 100, 0);
     base.Start();
-    //InitiateOrders();
-    //StartCoroutine(StartCastOrders());
-    AddPlate(1);
-    AddPlate(2);
-    AddPlate(3);
-    
+    head.GetComponent<Plate>().nextPlate = head;
+    head.GetComponent<Plate>().previousPlate = head;
+  }
+
+  private void Update()
+  {
+    if (Input.GetKeyDown(KeyCode.P))
+    {
+      AddPlate(Random.Range(1,4));
+    }
   }
   public IEnumerator StartCastOrders()
   {
@@ -87,11 +91,6 @@ public class RestaurantScript : PlateList
       }
       counter++;
     }
-    
-    
-    
-    
-    
   }
   void AddPlate(int code)
   {
@@ -99,28 +98,39 @@ public class RestaurantScript : PlateList
     GameObject prato;
      prato = Instantiate(plates[code - 1],transform.position + nextTransform * runningOrders,quaternion.identity,GameObject.Find("Canvas").transform);
      prato.GetComponent<Plate>().nextPlate = head.GetComponent<Plate>().nextPlate;
+     prato.GetComponent<Plate>().previousPlate = head;
+     prato.GetComponent<Plate>().nextPlate.gameObject.GetComponent<Plate>().previousPlate = prato;
      head.GetComponent<Plate>().nextPlate = prato;
-     runningOrders++;
+     
+     runningOrders+=1;
   }
 
   public void RemovePlate()
   {
-    for (GameObject prato = head.GetComponent<Plate>().nextPlate; prato.GetComponent<Plate>().nextPlate != null; prato = prato.GetComponent<Plate>().nextPlate)
+    for (GameObject prato = head.GetComponent<Plate>().nextPlate;prato != head;prato = prato.GetComponent<Plate>().nextPlate)
     {
-      Debug.Log(prato.name);
-      if (prato.GetComponent<Plate>().nextPlate.gameObject.GetComponent<Plate>().actualTimer <= 0)
+      if (prato.GetComponent<Plate>().actualTimer <= 0)
       {
-        if (prato.GetComponent<Plate>().nextPlate == null) 
-        {
-          Destroy(prato);
-        }
-        else
-        {
-          prato.GetComponent<Plate>().nextPlate = prato.GetComponent<Plate>().nextPlate.gameObject.GetComponent<Plate>().nextPlate;
-          Destroy(prato);
-        }
+        AttPlatePosition(prato);
+        prato.GetComponent<Plate>().previousPlate.gameObject.GetComponent<Plate>().nextPlate = prato.GetComponent<Plate>().nextPlate;
+        prato.GetComponent<Plate>().nextPlate.gameObject.GetComponent<Plate>().previousPlate = prato.GetComponent<Plate>().previousPlate;
       }
     }
+  }
+
+  public void AttPlatePosition(GameObject plate)
+  {
+    Vector3 nextTransform = new Vector3(-200,0,0);
+
+    for (GameObject prato = plate.GetComponent<Plate>().previousPlate; prato != head; prato = prato.GetComponent<Plate>().previousPlate)
+    {
+      prato.transform.parent = GameObject.Find("TemporaryParent").transform;
+      
+      prato.transform.position += nextTransform;
+      
+      prato.transform.parent = GameObject.Find("Canvas").transform;
+    }
+    Destroy(plate);
   }
   
   public class Orders

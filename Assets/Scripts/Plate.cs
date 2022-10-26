@@ -14,6 +14,7 @@ public class Plate : MonoBehaviour
     public Image TimerBar;
     public float actualTimer;
     public GameObject nextPlate;
+    public GameObject previousPlate;
 
     private void Start()
     {
@@ -22,18 +23,17 @@ public class Plate : MonoBehaviour
 
     private void Update()
      {
-         if (isHead)
-         {
+         if (isHead) {
              return;
-         }
-         else
-         {
+         }else {
              TimerBar.fillAmount = actualTimer / plateTimer;
              if (actualTimer > 0) {
                  actualTimer -= Time.deltaTime;
 
-             }else
+             }else {
+                 GameObject.Find("Restaurant").GetComponent<RestaurantScript>().runningOrders--;
                  GameObject.Find("Restaurant").GetComponent<RestaurantScript>().RemovePlate();
+             }
          }
      }
 }

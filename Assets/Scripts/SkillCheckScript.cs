@@ -22,7 +22,7 @@ public class SkillCheckScript : MonoBehaviour
 
     void Update()
      {
-         pointerRect.transform.Rotate(0,0,-300 * Time.deltaTime);
+         pointerRect.transform.Rotate(0,0,-150 * Time.deltaTime *2);
 
          if (Input.GetKeyDown(KeyCode.Space))
          {
@@ -32,13 +32,15 @@ public class SkillCheckScript : MonoBehaviour
                  {
                      case 1:
                          Camera.main.GetComponent<Mouse>().plate01++;
-
+                         Camera.main.GetComponent<Mouse>().AttInventory();
                          break;
                      case 2:
                          Camera.main.GetComponent<Mouse>().plate02++;
+                         Camera.main.GetComponent<Mouse>().AttInventory();
                          break;
                      case 3:
                          Camera.main.GetComponent<Mouse>().plate03++;
+                         Camera.main.GetComponent<Mouse>().AttInventory();
                          break;
                      
                  }

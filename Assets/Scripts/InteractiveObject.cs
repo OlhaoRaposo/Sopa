@@ -14,6 +14,7 @@ public class InteractiveObject : MonoBehaviour
     [Header("Client")]
     public bool isClient;
     public bool hasOrderTaken = false;
+    public int timerD;
     public int pedido;
     [SerializeField]
     private float hunger = 300;
@@ -34,6 +35,10 @@ public class InteractiveObject : MonoBehaviour
         //SetVars
         player = GameObject.Find("Player");
         hunterMp = Random.Range(1, 3);
+        if (isClient)
+        {
+          InitiateOrders();
+        }
     }
 
      void Update()
@@ -48,6 +53,8 @@ public class InteractiveObject : MonoBehaviour
      {
        switch (pedido)
        {
+         case 0:
+           return;
          case 1:
            if (Camera.main.GetComponent<Mouse>().plate01 > 0)
            {
@@ -75,6 +82,17 @@ public class InteractiveObject : MonoBehaviour
     {
         InitiateOrders();
         hasOrderTaken = true;
+        if (Camera.main.GetComponent<Mouse>().pedidoAtual != 0) {
+          Camera.main.GetComponent<Mouse>().forgotText.enabled = true;
+          Camera.main.GetComponent<Mouse>().pedidoAtual = pedido;
+        }
+        else {
+          Camera.main.GetComponent<Mouse>().pedidoAtual = pedido;
+          Camera.main.GetComponent<Mouse>().forgotText.enabled = false;
+        }
+
+          
+
     }
     public void InitiateOrders()
       {
@@ -84,7 +102,7 @@ public class InteractiveObject : MonoBehaviour
         int numbersOfPlates = 0;
         string name = "";
         int code = 0;
-        float timer = 0;
+        int timer = 0;
         float value = 0;
         
         
@@ -105,11 +123,12 @@ public class InteractiveObject : MonoBehaviour
             }else if (counter == 1) {
               code = int.Parse(line);
               pedido = code;
-              Camera.main.GetComponent<Mouse>().pedidoAtual = pedido;
               Debug.Log(pedido);
             }else if (counter == 2)
             {
-              timer = float.Parse(line);
+              timer = int.Parse(line);
+              StartCoroutine(DestroyGmbj(timer));
+              timerD = timer;
             }else if (counter == 3)
             {
               value = float.Parse(line);
@@ -156,6 +175,14 @@ public class InteractiveObject : MonoBehaviour
       skillCheckObj.GetComponent<SkillCheckScript>().plateToBeAdded = int.Parse(plateToBake);
       skillCheckObj.transform.SetParent(GameObject.Find("Canvas").transform);
       InteractOven();
+    }
+
+    IEnumerator DestroyGmbj(int time)
+    {
+      yield return new WaitForSeconds(time);
+
+
+      Destroy(gameObject);
     }
     
     

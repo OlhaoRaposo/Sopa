@@ -22,13 +22,17 @@ public class RestaurantScript : PlateList
   public void AddPlate(int code)
   {
     Vector3 nextTransform = new Vector3(200,0,0);
-    GameObject prato;
-     prato = Instantiate(plates[code - 1],transform.position + nextTransform * runningOrders,quaternion.identity,GameObject.Find("Canvas").transform);
-     prato.GetComponent<Plate>().nextPlate = head.GetComponent<Plate>().nextPlate;
-     prato.GetComponent<Plate>().previousPlate = head;
-     prato.GetComponent<Plate>().nextPlate.gameObject.GetComponent<Plate>().previousPlate = prato;
-     head.GetComponent<Plate>().nextPlate = prato;
-     runningOrders+=1;
+    GameObject prato = null;
+    if (code != 0)
+    {
+      prato = Instantiate(plates[code-1],transform.position + nextTransform * runningOrders,quaternion.identity,GameObject.Find("Canvas").transform);
+      prato.GetComponent<Plate>().nextPlate = head.GetComponent<Plate>().nextPlate;
+      prato.GetComponent<Plate>().previousPlate = head;
+      prato.GetComponent<Plate>().nextPlate.gameObject.GetComponent<Plate>().previousPlate = prato;
+      head.GetComponent<Plate>().nextPlate = prato;
+      runningOrders+=1;
+    }else 
+      return;
   }
   
 

@@ -276,7 +276,7 @@ MonoBehaviour:
   isHead: 0
   plateCode: 2
   plateName: Feijoada
-  plateTimer: 25
+  plateTimer: 34
   plateValue: 28
   TimerBar: {fileID: 465103177205508692}
   actualTimer: 0

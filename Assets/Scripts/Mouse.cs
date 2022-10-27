@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,13 @@ public class Mouse : MonoBehaviour
     public Transform player;
     //public Text intText;
     [Header("Text")]
-    public Text intText;
+    public TMP_Text intText;
+    public TMP_Text forgotText;
     public int pedidoAtual;
+    public TMP_Text strogonoff;
+    public TMP_Text feijoada;
+    public TMP_Text parmegiana;
+    
     
     //Inventory
     [Header("Inventory")] 
@@ -34,6 +40,7 @@ public class Mouse : MonoBehaviour
     }
     void Update()
     {
+        AttInventory();
         float mouseX = Input.GetAxis("Mouse X") * MouseSens * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * MouseSens * Time.deltaTime;
         xRotation -= mouseY;
@@ -110,4 +117,13 @@ public class Mouse : MonoBehaviour
     {
         intText.enabled = false;
     }
+
+   public void AttInventory()
+    {
+        strogonoff.text = "Strogonoff - " + plate01;
+        feijoada.text = "Feijoada - " + plate02;
+        parmegiana.text = "Parmegiana - " + plate03;
+    }
+    
+    
 }

@@ -6,11 +6,21 @@ using UnityEngine.UI;
 public class Mouse : MonoBehaviour
 {
     //Public VAR
+    [Header("Aim Config")]
     public float MouseSens = 100f;
     public float minAngle, MaxAngle;
     public Transform player;
     //public Text intText;
-
+    [Header("Text")]
+    public Text intText;
+    public int pedidoAtual;
+    
+    //Inventory
+    [Header("Inventory")] 
+    public int plate01;
+    public int plate02;
+    public int plate03;
+    public float Cash;
 
     //Private VAR
     private float xRotation = 0f;
@@ -35,7 +45,7 @@ public class Mouse : MonoBehaviour
         Debug.DrawRay(Camera.main.transform.position, transform.forward * distanceOfInteract, Color.red);
 
         rayVec = Camera.main.transform.position;
-        /*if (Physics.Raycast(rayVec, transform.forward, out ray))
+        if (Physics.Raycast(rayVec, transform.forward, out ray))
         {
             if (ray.distance < distanceOfInteract)
             {
@@ -58,37 +68,46 @@ public class Mouse : MonoBehaviour
                 return;
             }
         }
-        */
+        
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Cursor.lockState = CursorLockMode.None;
+            Debug.Log("a");
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Debug.Log("2a");
         }
     }
-    /*void Interact(GameObject gmbj)
+    void Interact(GameObject gmbj)
     {
         intText.enabled = true;
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (gmbj.GetComponent<InteractiveObject>().isDoor)
+            if (gmbj.GetComponent<InteractiveObject>().isClient)
             {
-                gmbj.GetComponent<InteractiveObject>().InteractDoor();
-            }
-            else if (gmbj.GetComponent<InteractiveObject>().isKey)
+                if (gmbj.GetComponent<InteractiveObject>().hasOrderTaken == false)
+                {
+                    gmbj.GetComponent<InteractiveObject>().InteractClient();
+                    gmbj.GetComponent<InteractiveObject>().hasOrderTaken = true;
+                }else
+                {
+                    gmbj.GetComponent<InteractiveObject>().CloseOrder();
+                }
+                
+            }else if (gmbj.GetComponent<InteractiveObject>().isorderTaker)
             {
-                gmbj.GetComponent<InteractiveObject>().InteractKey();
-            }
-            else if (gmbj.GetComponent<InteractiveObject>().isLever)
+                gmbj.GetComponent<InteractiveObject>().AddOrder();
+            }else if (gmbj.GetComponent<InteractiveObject>().isOven)
             {
-                gmbj.GetComponent<InteractiveObject>().InteractLever();
+                gmbj.GetComponent<InteractiveObject>().InteractOven();
             }
         }
+        
     }
     void NotInteract()
     {
         intText.enabled = false;
-    }*/
+    }
 }

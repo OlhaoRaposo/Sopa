@@ -31,7 +31,6 @@ public class Plate : MonoBehaviour
                  actualTimer -= Time.deltaTime;
 
              }else {
-                 GameObject.Find("Restaurant").GetComponent<RestaurantScript>().runningOrders--;
                  GameObject.Find("Restaurant").GetComponent<RestaurantScript>().RemovePlate();
              }
          }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
                 speed += 4;
             canRun = false;
             stamina = false;
-            Invoke("StaminaMarker", 6f);
+            Invoke("StaminaMarker", 1f);
             isRuning = true;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -74,11 +75,13 @@ public class Player : MonoBehaviour
         if (stamina == false && canRun == false)
         {
             canRun = true;
-            Invoke("StaminaMarker", 5f);
+            Invoke("StaminaMarker", 1f);
         }
         if (canRun == true)
         {
             stamina = true;
         }
     }
+
+    
 }

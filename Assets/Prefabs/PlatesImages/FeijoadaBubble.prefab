@@ -276,11 +276,12 @@ MonoBehaviour:
   isHead: 0
   plateCode: 2
   plateName: Feijoada
-  plateTimer: 10
+  plateTimer: 25
   plateValue: 28
   TimerBar: {fileID: 465103177205508692}
   actualTimer: 0
   nextPlate: {fileID: 0}
+  previousPlate: {fileID: 0}
 --- !u!1 &3727753401617950640
 GameObject:
   m_ObjectHideFlags: 0

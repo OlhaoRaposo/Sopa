@@ -200,11 +200,12 @@ MonoBehaviour:
   isHead: 0
   plateCode: 3
   plateName: Parmegiana
-  plateTimer: 20
+  plateTimer: 32
   plateValue: 36
   TimerBar: {fileID: 6956363010348055546}
   actualTimer: 0
   nextPlate: {fileID: 0}
+  previousPlate: {fileID: 0}
 --- !u!1 &6956363010348055548
 GameObject:
   m_ObjectHideFlags: 0
